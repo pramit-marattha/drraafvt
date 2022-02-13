@@ -28,3 +28,6 @@ export const sanityClient = createClient(config)
 // setup helper function for generating Image URLs from an image document
 
 export const urlFor = (source) => createImageUrlBuilder(config).image(source)
+
+// setup helper function for using the current logged in user
+export const useCurrentUser = createCurrentUserHook(config)
