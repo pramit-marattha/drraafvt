@@ -19,6 +19,30 @@ const Post = ({ post }: Props) => {
           alt=""
         />
       </div>
+
+      <article className="mx-auto max-w-3xl p-5">
+        <h1 className="mt-10 mb-3 text-2xl">{post.title}</h1>
+        <h2 className="text-md mb-2 font-light text-gray-500">
+          {post.description}
+        </h2>
+
+        <div className="flex items-center space-x-5">
+          <img
+            className="h-10 w-10 rounded-xl object-cover transition-transform duration-200 ease-in-out hover:scale-105"
+            src={urlFor(post.author.image).url()!}
+            alt=""
+          />
+          <p className="font-extra-light text-sm">
+            Article by <span className="text-teal-500">{post.author.name}</span>{' '}
+            - Updated at{' '}
+            {new Date().toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </p>
+        </div>
+      </article>
     </main>
   )
 }
