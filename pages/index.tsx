@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
-import { sanityClient, urlFor } from '../sanityConfig.js'
+import PostList from '../components/PostList'
+import { sanityClient } from '../sanityConfig.js'
 import { Post } from '../typing'
 
 interface Props {
@@ -9,7 +10,6 @@ interface Props {
 }
 
 export default function Home({ posts }: Props) {
-  console.log(posts)
   return (
     <div className="mx-auto max-w-7xl">
       <Head>
@@ -18,24 +18,25 @@ export default function Home({ posts }: Props) {
       </Head>
       <Navbar />
       <Hero />
+      <PostList posts={posts} />
     </div>
   )
 }
 
 export const getServerSideProps = async () => {
   const query = `
-  *[_type == "post"]{
-    _id,
-    title,
-    slug,
-    author ->{
-    name,
-    image
-  },
-  description,
-  mainImage
-  }
-  `
+    *[_type == "post"]{
+      _id,
+      title,
+      slug,
+      author ->{
+      name,
+      image
+    },
+    description,
+    mainImage
+    }
+    `
   const posts = await sanityClient.fetch(query)
 
   return {
