@@ -22,5 +22,9 @@ export const config = {
    **/
   useCdn: process.env.NODE_ENV === 'production',
 }
-
+// setup client for fetching data
 export const sanityClient = createClient(config)
+
+// setup helper function for generating Image URLs from an image document
+
+export const urlFor = (source) => createImageUrlBuilder(config).image(source)
