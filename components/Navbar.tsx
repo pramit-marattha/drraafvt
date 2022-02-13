@@ -1,6 +1,10 @@
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import DarkModeToggle from './DarkModeToggle'
 
 function Navbar() {
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
   return (
     <>
       <header className="mx-auto flex max-w-7xl justify-between p-5">
@@ -19,10 +23,10 @@ function Navbar() {
           </div>
         </div>
         <div className="flex items-center space-x-5">
-          <h3>Newsletter</h3>
           <h3 className="rounded-full bg-teal-500 px-5 py-1 text-white">
             Get started !
           </h3>
+          <DarkModeToggle />
         </div>
       </header>
     </>

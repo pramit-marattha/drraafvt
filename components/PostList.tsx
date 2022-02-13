@@ -16,7 +16,7 @@ const PostList = ({ posts }: Props) => {
               className="h-60 w-full object-cover transition-transform duration-200 ease-in-out group-hover:scale-105"
               src={urlFor(post.mainImage).url()!}
             />
-            <div className="flex justify-between bg-white p-5">
+            <div className="flex justify-between p-5">
               <div>
                 <p className="text-lg font-bold">{post.title}</p>
                 <p className="text-xs">
