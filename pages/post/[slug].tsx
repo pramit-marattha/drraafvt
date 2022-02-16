@@ -9,21 +9,12 @@ interface Props {
 }
 
 const Post = ({ post }: Props) => {
-  const postBody: any = post.body
-
-  useEffect(() => {
-    fetch(postBody)
-      .then((res) => res.text())
-      .then((text) => setMarkdown(text))
-  }, [])
-
-  console.log('postbody', post.body)
   return (
     <main>
       <Navbar />
       <div className="group mx-auto max-w-7xl">
         <img
-          className="h-80 w-full object-cover transition-transform duration-200 ease-in-out group-hover:scale-105"
+          className="h-80 w-full object-cover"
           src={urlFor(post.mainImage).url()!}
           alt=""
         />
@@ -51,9 +42,7 @@ const Post = ({ post }: Props) => {
             })}
           </p>
         </div>
-        <div>
-          
-        </div>
+        <div></div>
       </article>
     </main>
   )
