@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { sanityClient, urlFor } from '../../sanityConfig.js'
 import Navbar from '../../components/Navbar'
 import { Post } from '../../typing'
+import PortableText from 'react-portable-text'
 
 interface Props {
   post: Post
 }
 
 const Post = ({ post }: Props) => {
-  console.log(post)
+  const postBody: any = post.body
+
+  useEffect(() => {
+    fetch(postBody)
+      .then((res) => res.text())
+      .then((text) => setMarkdown(text))
+  }, [])
+
+  console.log('postbody', post.body)
   return (
     <main>
       <Navbar />
@@ -41,6 +50,9 @@ const Post = ({ post }: Props) => {
               day: 'numeric',
             })}
           </p>
+        </div>
+        <div>
+          
         </div>
       </article>
     </main>

@@ -8,11 +8,10 @@ const Hero = () => {
           <span className="text-teal-100 underline decoration-teal-100 hover:no-underline">
             Drraafvt
           </span>{' '}
-          a portal for writers,creators and developers
+          a portal where I jolt things down !
         </h1>
         <h2 className="font-serif text-teal-900">
-          It's simple and free to share your thoughts and opinions on any issue
-          related to any technology in general.
+          Something!! Something !! Tech articles.
         </h2>
       </div>
       <img
