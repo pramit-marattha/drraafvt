@@ -10,7 +10,7 @@ interface Props {
 
 const Post = ({ post }: Props) => {
   return (
-    <main>
+    <main className="mx-auto max-w-3xl p-5">
       <Navbar />
       <div className="group mx-auto max-w-7xl">
         <img
@@ -79,6 +79,37 @@ const Post = ({ post }: Props) => {
           />
         </div>
       </article>
+
+      <hr className="mx-w-sm my-5 mx-auto border border-teal-600 " />
+
+      <form className="mx-w-2xl my-10 mx-auto mb-10 flex flex-col p-5">
+        <h2 className="text-2xl font-bold">Your Feedback is valuable !</h2>
+        <hr className="mt-3 py-2" />
+        <label className="mb-5 block">
+          <span className="text-gray-800">Enter name:</span>
+          <input
+            className="form-input mt-1 block w-full rounded-full border border-transparent py-2 px-3 shadow ring-teal-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600"
+            placeholder="Johnny"
+            type="text"
+          />
+        </label>
+        <label className="mb-5 block">
+          <span className="text-gray-800">Enter email:</span>
+          <input
+            className="form-input mt-1 block w-full rounded-full border border-transparent py-2 px-3 shadow ring-teal-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600"
+            placeholder="johnny@johnny.com"
+            type="text"
+          />
+        </label>
+        <label className="mb-5 block">
+          <span className="text-gray-800">Comment:</span>
+          <textarea
+            className="form-input form-textarea mt-1 block w-full rounded-xl border border-transparent py-2 px-3 shadow ring-teal-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600"
+            placeholder="Your comment"
+            rows={10}
+          />
+        </label>
+      </form>
     </main>
   )
 }
