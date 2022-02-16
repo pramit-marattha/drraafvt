@@ -42,7 +42,42 @@ const Post = ({ post }: Props) => {
             })}
           </p>
         </div>
-        <div></div>
+        <div className="mt-10">
+          <PortableText
+            className=""
+            dataset={process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'}
+            projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
+            content={post.body}
+            serializers={{
+              h1: (props: any) => (
+                <h1 className="text-2xl font-bold" {...props} />
+              ),
+              h2: (props: any) => (
+                <h2 className="text-xl font-bold" {...props} />
+              ),
+              h3: (props: any) => (
+                <h3 className="text-lg font-bold" {...props} />
+              ),
+              h4: (props: any) => (
+                <h4 className="text-md font-bold" {...props} />
+              ),
+              h5: (props: any) => (
+                <h5 className="text-sm font-bold" {...props} />
+              ),
+              h6: (props: any) => (
+                <h6 className="text-xs font-bold" {...props} />
+              ),
+              li: ({ children }: any) => (
+                <li className="text-lg font-bold">{children}</li>
+              ),
+              link: ({ href, children }: any) => (
+                <a className="text-teal-500 hover:underline" href={href}>
+                  {children}
+                </a>
+              ),
+            }}
+          />
+        </div>
       </article>
     </main>
   )
