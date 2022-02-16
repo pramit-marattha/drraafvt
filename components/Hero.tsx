@@ -11,7 +11,9 @@ const Hero = () => {
           a portal where I jolt things down !
         </h1>
         <h2 className="font-serif text-teal-900">
-          Mostly about web developments and various Tech stacks !
+          Mostly about web developments and various Tech stacks that I use !
+          <br />
+          "Join me on my adventure and explore alongside me."
         </h2>
       </div>
       <img
