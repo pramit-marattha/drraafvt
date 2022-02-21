@@ -174,6 +174,23 @@ const Post = ({ post }: Props) => {
             />
           </form>
         )}
+        <div className="my-10 flex max-w-2xl flex-col p-10">
+          <h2 className="text-2xl font-bold">Comments</h2>
+          <hr className="mt-3 py-2" />
+          {post.comments.map((comment: any) => (
+            <div key={comment._lkid}>
+              <div className="flex flex-col p-5">
+                <div className="flex flex-row">
+                  <div className="ml-4 flex flex-col">
+                    <h3 className="text-lg font-bold">{comment.author.name}</h3>
+                    <p className="text-lg font-bold">{comment.comment}</p>
+                  </div>
+                </div>
+              </div>
+              <hr className="mt-3 py-2" />
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   )
