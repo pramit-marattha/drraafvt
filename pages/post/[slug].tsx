@@ -99,6 +99,13 @@ const Post = ({ post }: Props) => {
         <form className="mx-w-2xl my-10 mx-auto mb-10 flex flex-col p-5">
           <h2 className="text-2xl font-bold">Your Feedback is valuable !</h2>
           <hr className="mt-3 py-2" />
+
+          <input
+            {...register('_id')}
+            type="hidden"
+            name="_id"
+            value={post._id}
+          />
           <label className="mb-5 block">
             <span className="text-gray-800">Enter name:</span>
             <input
