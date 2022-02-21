@@ -23,6 +23,20 @@ const Post = ({ post }: Props) => {
     formState: { errors },
   } = useForm<IFormInput>()
 
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    await fetch("/api/createComment",{
+      method: "POST",
+      body: JSON.stringify(data),
+    }).then(()=>{
+      alert("Comment created")
+    }).catch(()=>{
+      alert("Error")
+    })
+  }
+  
+    console.log(data)
+  }
+
   return (
     <main>
       <Navbar />
@@ -96,7 +110,10 @@ const Post = ({ post }: Props) => {
       <div className="mx-auto max-w-3xl p-5">
         <hr className="mx-w-sm my-5 mx-auto border border-teal-600 " />
 
-        <form className="mx-w-2xl my-10 mx-auto mb-10 flex flex-col p-5">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="mx-w-2xl my-10 mx-auto mb-10 flex flex-col p-5"
+        >
           <h2 className="text-2xl font-bold">Your Feedback is valuable !</h2>
           <hr className="mt-3 py-2" />
 
@@ -121,7 +138,7 @@ const Post = ({ post }: Props) => {
               {...(register('email'), { required: true })}
               className="form-input mt-1 block w-full rounded-full border border-transparent py-2 px-3 shadow ring-teal-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600"
               placeholder="johnny@johnny.com"
-              type="text"
+              type="email"
             />
           </label>
           <label className="mb-5 block">
@@ -133,6 +150,22 @@ const Post = ({ post }: Props) => {
               rows={10}
             />
           </label>
+          {/* // error field validation  */}
+          <div className="flex flex-col p-5">
+            {errors.name && (
+              <p className="text-sm text-red-500">{errors.name.message}</p>
+            )}
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email.message}</p>
+            )}
+            {errors.comment && (
+              <p className="text-sm text-red-500">{errors.comment.message}</p>
+            )}
+          </div>
+          <input
+            className="mt-5 cursor-pointer rounded-full bg-teal-500 py-2 px-4 font-bold text-white hover:bg-teal-600"
+            type="submit"
+          />
         </form>
       </div>
     </main>
