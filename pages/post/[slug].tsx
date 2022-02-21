@@ -3,6 +3,7 @@ import { sanityClient, urlFor } from '../../sanityConfig.js'
 import Navbar from '../../components/Navbar'
 import { Post } from '../../typing'
 import PortableText from 'react-portable-text'
+import { useForm, SubmitHandler } from 'react-hook-form'
 
 interface Props {
   post: Post
