@@ -109,6 +109,7 @@ const Post = ({ post }: Props) => {
           <label className="mb-5 block">
             <span className="text-gray-800">Enter name:</span>
             <input
+              {...(register('name'), { required: true })}
               className="form-input mt-1 block w-full rounded-full border border-transparent py-2 px-3 shadow ring-teal-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600"
               placeholder="Johnny"
               type="text"
@@ -117,6 +118,7 @@ const Post = ({ post }: Props) => {
           <label className="mb-5 block">
             <span className="text-gray-800">Enter email:</span>
             <input
+              {...(register('email'), { required: true })}
               className="form-input mt-1 block w-full rounded-full border border-transparent py-2 px-3 shadow ring-teal-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600"
               placeholder="johnny@johnny.com"
               type="text"
@@ -125,6 +127,7 @@ const Post = ({ post }: Props) => {
           <label className="mb-5 block">
             <span className="text-gray-800">Comment:</span>
             <textarea
+              {...(register('comment'), { required: true })}
               className="form-input form-textarea mt-1 block w-full rounded-xl border border-transparent py-2 px-3 shadow ring-teal-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600"
               placeholder="Your comment"
               rows={10}
