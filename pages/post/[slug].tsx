@@ -5,11 +5,24 @@ import { Post } from '../../typing'
 import PortableText from 'react-portable-text'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
+interface IFormInput {
+  _id: string
+  name: string
+  email: string
+  comment: string
+}
+
 interface Props {
   post: Post
 }
 
 const Post = ({ post }: Props) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>()
+
   return (
     <main>
       <Navbar />
