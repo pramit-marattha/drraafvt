@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar'
 import { Post } from '../../typing'
 import PortableText from 'react-portable-text'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { GetStaticProps } from 'next'
 
 interface IFormInput {
   _id: string
@@ -16,28 +17,32 @@ interface Props {
   post: Post
 }
 
-const Post = ({ post }: Props) => {
+function Post({ post }: Props) {
   const [submitted, setSubmitted] = useState(false)
+  console.log(post)
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>()
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    await fetch('/api/comments', {
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    fetch('/api/postComments', {
       method: 'POST',
       body: JSON.stringify(data),
     })
       .then(() => {
-        alert('Comment created')
+        console.log(data)
         setSubmitted(true)
       })
-      .catch(() => {
-        alert('Error')
+      .catch((err) => {
+        console.log(err)
         setSubmitted(false)
       })
   }
+
+  console.log('this is posts', post)
   return (
     <main>
       <Navbar />
@@ -178,12 +183,12 @@ const Post = ({ post }: Props) => {
           <h2 className="text-2xl font-bold">Comments</h2>
           <hr className="mt-3 py-2" />
           {post.comments.map((comment: any) => (
-            <div key={comment._lkid}>
+            <div key={comment._id}>
               <div className="flex flex-col p-5">
                 <div className="flex flex-row">
                   <div className="ml-4 flex flex-col">
-                    <h3 className="text-lg font-bold">{comment.author.name}</h3>
                     <p className="text-lg font-bold">{comment.comment}</p>
+                    <a className="text-lg font-light">{comment.name}</a>
                   </div>
                 </div>
               </div>
@@ -202,10 +207,12 @@ export const getStaticPaths = async () => {
   const query = `*[_type == "post"]{
         _id,
         slug {
-        current
+            current
         }
-        }`
+    }`
+
   const posts = await sanityClient.fetch(query)
+
   const paths = posts.map((post: Post) => ({
     params: {
       slug: post.slug.current,
@@ -214,35 +221,43 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: 'blocking',
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }: any) => {
-  const query = `*[_type == "post" && slug.current == $slug][0]{
-    _id,
-    title,
-    slug,
-    author ->{
-    name,
-    image
-    },
-    'comments': *[_type == "comment" && post._ref == ^._id && approved == true],
-    description,
-    mainImage,
-slug,
-body
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const query = `*[_type == "post" && slug.current == $slug] [0]{
+        _id,
+        _createdAt,
+        title,
+        author -> {
+            name,
+            image
+        },
+        'comments': *[
+            _type == "comment" &&
+            post._ref == ^._id &&
+            approved == true],
+            description,
+            mainImage,
+            author,
+            slug,
+            body
     }`
-  const post = await sanityClient.fetch(query, { slug: params?.slug })
+
+  const post = await sanityClient.fetch(query, {
+    slug: params?.slug,
+  })
 
   if (!post) {
-    throw new Error(`Post ${params?.slug} not found`)
+    return {
+      notFound: true,
+    }
   }
-
   return {
     props: {
       post,
     },
-    revalidate: 60,
+    revalidate: 8200, // after 8200 seconds, it'll update the old cached version.
   }
 }
