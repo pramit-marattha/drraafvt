@@ -6,7 +6,7 @@ export default {
     {
       name: 'title',
       title: 'Title',
-      description: 'Give a short title',
+      description: 'Provide a short title',
       type: 'string',
     },
     {
@@ -54,7 +54,6 @@ export default {
       type: 'blockContent',
     },
   ],
-
   preview: {
     select: {
       title: 'title',

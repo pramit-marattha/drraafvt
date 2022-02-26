@@ -1,35 +1,37 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import sanityClient from '@sanity/client'
 
+// sanity config
 const config = {
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   useCdn: process.env.NODE_ENV === 'production',
   token: process.env.SANITY_API_TOKEN,
 }
 
+// sanity client
 const client = sanityClient(config)
 
-export default async function createComment(
+export default async function postComments(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { _id, name, email, comment } = JSON.parse(req.body)
-
   try {
+    const { _id, name, comment, email } = JSON.parse(req.body)
+
     await client.create({
       _type: 'comment',
       post: {
-        _type: 'reference',
+        _type: 'refrence',
         _ref: _id,
       },
       name,
-      email,
       comment,
+      email,
     })
-  } catch (err) {
-    return res.status(500).json({ message: `Couldn't submit comment`, err })
+    res.status(200).json({ success: true })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ success: false })
   }
-  console.log('Comment Submitted')
-  res.status(200).json({ message: 'Comment Submitted' })
 }

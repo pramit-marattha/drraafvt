@@ -23,9 +23,9 @@ export default createSchema({
     post,
     author,
     category,
-    comment,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     blockContent,
+    comment,
   ]),
 })
