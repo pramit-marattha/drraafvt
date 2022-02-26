@@ -114,6 +114,23 @@ function Post({ post }: Props) {
         </div>
       </article>
       <div className="mx-auto max-w-3xl p-5">
+        <div className="my-10 flex max-w-2xl flex-col p-10">
+          <h2 className="text-2xl font-bold">Comments</h2>
+          <hr className="mt-3 py-2" />
+          {post.comments.map((comment: any) => (
+            <div key={comment._id}>
+              <div className="flex flex-col p-5">
+                <div className="flex flex-row">
+                  <div className="ml-4 flex flex-col">
+                    <p className="text-lg font-bold">{comment.comment}</p>
+                    <a className="text-lg font-light">{comment.name}</a>
+                  </div>
+                </div>
+              </div>
+              <hr className="mt-3 py-2" />
+            </div>
+          ))}
+        </div>
         <hr className="mx-w-sm my-5 mx-auto border border-teal-600 " />
 
         {submitted ? (
@@ -179,23 +196,6 @@ function Post({ post }: Props) {
             />
           </form>
         )}
-        <div className="my-10 flex max-w-2xl flex-col p-10">
-          <h2 className="text-2xl font-bold">Comments</h2>
-          <hr className="mt-3 py-2" />
-          {post.comments.map((comment: any) => (
-            <div key={comment._id}>
-              <div className="flex flex-col p-5">
-                <div className="flex flex-row">
-                  <div className="ml-4 flex flex-col">
-                    <p className="text-lg font-bold">{comment.comment}</p>
-                    <a className="text-lg font-light">{comment.name}</a>
-                  </div>
-                </div>
-              </div>
-              <hr className="mt-3 py-2" />
-            </div>
-          ))}
-        </div>
       </div>
     </main>
   )
