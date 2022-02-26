@@ -19,26 +19,29 @@ interface Props {
 
 const Post = ({ post }: Props) => {
   const [submitted, setSubmitted] = useState(false)
+  console.log(post)
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>()
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    await fetch('/api/postComments', {
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    fetch('/api/postComments', {
       method: 'POST',
       body: JSON.stringify(data),
     })
       .then(() => {
-        alert('Comment created')
+        console.log(data)
         setSubmitted(true)
       })
-      .catch(() => {
-        alert('Error')
+      .catch((err) => {
+        console.log(err)
         setSubmitted(false)
       })
   }
+
   return (
     <main>
       <Navbar />
@@ -110,11 +113,33 @@ const Post = ({ post }: Props) => {
         </div>
       </article>
       <div className="mx-auto max-w-3xl p-5">
+        <div className="my-10 flex max-w-2xl flex-col p-10">
+          <h2 className="text-2xl font-bold">Comments</h2>
+          <hr className="mt-3 py-2" />
+          {post.comments.map((comment: any) => (
+            <div key={comment._lkid}>
+              <div className="flex flex-col p-5">
+                <div className="flex flex-row">
+                  <div className="ml-4 flex flex-col">
+                    <p className="text-lg font-bold">{comment.comment}</p>
+                    <a className="text-sm font-light">{comment.name}</a>
+                  </div>
+                </div>
+              </div>
+              <hr className="mt-3 py-2" />
+            </div>
+          ))}
+        </div>
         <hr className="mx-w-sm my-5 mx-auto border border-teal-600 " />
 
         {submitted ? (
-          <div className="my-10 flex flex-col bg-teal-500 py-10">
-            <h2 className="text-2xl font-bold">Thank you for your comment</h2>
+          <div className="my-10 flex flex-col rounded-full bg-teal-500 py-10 text-center">
+            <h2 className="text-2xl font-bold text-gray-200">
+              Thank you for your awesome feedback !
+            </h2>
+            <p className="text-gray-200">
+              Approved comments will appear below!
+            </p>
           </div>
         ) : (
           <form
@@ -131,27 +156,24 @@ const Post = ({ post }: Props) => {
               value={post._id}
             />
             <label className="mb-5 block">
-              <span className="text-gray-800">Enter name:</span>
               <input
-                {...(register('name'), { required: true })}
+                {...register('name', { required: true })}
                 className="form-input mt-1 block w-full rounded-full border border-transparent py-2 px-3 shadow ring-teal-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600"
-                placeholder="Johnny"
+                placeholder="Enter your name...'drraafvt'"
                 type="text"
               />
             </label>
             <label className="mb-5 block">
-              <span className="text-gray-800">Enter email:</span>
               <input
-                {...(register('email'), { required: true })}
+                {...register('email', { required: true })}
                 className="form-input mt-1 block w-full rounded-full border border-transparent py-2 px-3 shadow ring-teal-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600"
-                placeholder="johnny@johnny.com"
+                placeholder="Enter email... 'johnny@johnny.com'"
                 type="email"
               />
             </label>
             <label className="mb-5 block">
-              <span className="text-gray-800">Comment:</span>
               <textarea
-                {...(register('comment'), { required: true })}
+                {...register('comment', { required: true })}
                 className="form-input form-textarea mt-1 block w-full rounded-xl border border-transparent py-2 px-3 shadow ring-teal-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-teal-600"
                 placeholder="Your comment"
                 rows={10}
@@ -160,13 +182,17 @@ const Post = ({ post }: Props) => {
             {/* // error field validation  */}
             <div className="flex flex-col p-5">
               {errors.name && (
-                <p className="text-sm text-red-500">{errors.name.message}</p>
+                <span className="text-teal-800">
+                  The Name Field is required
+                </span>
               )}
               {errors.email && (
-                <p className="text-sm text-red-500">{errors.email.message}</p>
+                <span className="text-teal-500">
+                  The Email Field is required
+                </span>
               )}
               {errors.comment && (
-                <p className="text-sm text-red-500">{errors.comment.message}</p>
+                <span className="text-teal-500">Comment Field is required</span>
               )}
             </div>
             <input
@@ -175,23 +201,6 @@ const Post = ({ post }: Props) => {
             />
           </form>
         )}
-        <div className="my-10 flex max-w-2xl flex-col p-10">
-          <h2 className="text-2xl font-bold">Comments</h2>
-          <hr className="mt-3 py-2" />
-          {post.comments.map((comment: any) => (
-            <div key={comment._lkid}>
-              <div className="flex flex-col p-5">
-                <div className="flex flex-row">
-                  <div className="ml-4 flex flex-col">
-                    <h3 className="text-lg font-bold">{comment.author.name}</h3>
-                    <p className="text-lg font-bold">{comment.comment}</p>
-                  </div>
-                </div>
-              </div>
-              <hr className="mt-3 py-2" />
-            </div>
-          ))}
-        </div>
       </div>
     </main>
   )
