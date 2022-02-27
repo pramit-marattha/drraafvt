@@ -13,6 +13,10 @@ export default {
       name: 'description',
       title: 'Description',
       type: 'string',
+      options: {
+        minLength: 36,
+        maxLength: 100,
+      },
     },
     {
       name: 'slug',
