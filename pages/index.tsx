@@ -29,6 +29,7 @@ export const getServerSideProps = async () => {
       _id,
       title,
       slug,
+      publishedAt,
       author ->{
       name,
       image

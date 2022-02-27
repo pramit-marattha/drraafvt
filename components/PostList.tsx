@@ -43,7 +43,7 @@ const PostList = ({ posts }: Props) => {
                     Exclusive Article !
                   </p>
                   <div className="mb-2 text-xl font-bold text-gray-900">
-                    Best Mountain Trails 2020
+                    {post.title}
                   </div>
                   <div className="w-full text-base  text-gray-700 lg:h-max lg:w-full">
                     {post.description}
@@ -60,7 +60,14 @@ const PostList = ({ posts }: Props) => {
                       {' '}
                       by {post.author.name}
                     </p>
-                    <p className="text-gray-600">Aug 18</p>
+                    <p className="text-gray-600">
+                      {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </p>
                   </div>
                 </div>
               </div>
