@@ -12,6 +12,8 @@ export interface Post {
       url: string
     }
   }
+  comments: [object]
+  publishedAt: string
   slug: {
     current: string
   }

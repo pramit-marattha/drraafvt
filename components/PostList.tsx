@@ -15,7 +15,7 @@ const PostList = ({ posts }: Props) => {
           <div className="p-5">
             <div className=" w-full lg:flex lg:max-w-full">
               <img
-                className="lg:h-120 group-hover:scale-65 h-60 w-full  flex-none  overflow-hidden rounded-t object-cover text-center transition-transform duration-200 ease-in-out lg:w-auto lg:rounded-t-none lg:rounded-l"
+                className="lg:h-120 group-hover:scale-65 h-60 w-full  flex-none  cursor-pointer overflow-hidden rounded-t object-cover text-center transition-transform duration-200 ease-in-out lg:w-auto lg:rounded-t-none lg:rounded-l"
                 title="Banner"
                 src={urlFor(post.mainImage).url()!}
               />
@@ -42,8 +42,8 @@ const PostList = ({ posts }: Props) => {
                     </svg>
                     Exclusive Article !
                   </p>
-                  <div className="mb-2 text-xl font-bold text-gray-900">
-                    Best Mountain Trails 2020
+                  <div className="mb-2 cursor-pointer text-xl font-bold text-gray-900">
+                    {post.title}
                   </div>
                   <div className="w-full text-base  text-gray-700 lg:h-max lg:w-full">
                     {post.description}
@@ -51,16 +51,23 @@ const PostList = ({ posts }: Props) => {
                 </div>
                 <div className="flex items-center">
                   <img
-                    className="mr-4 h-10 w-10 rounded-full"
+                    className="mr-4 h-10 w-10 cursor-pointer rounded-full"
                     src={urlFor(post.author.image).url()!}
                     alt="Author image"
                   />
                   <div className="text-sm">
-                    <p className="leading-none text-gray-900">
+                    <p className="cursor-pointer leading-none text-gray-900">
                       {' '}
                       by {post.author.name}
                     </p>
-                    <p className="text-gray-600">Aug 18</p>
+                    <p className="text-gray-600">
+                      {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </p>
                   </div>
                 </div>
               </div>

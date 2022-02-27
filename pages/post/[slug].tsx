@@ -211,6 +211,7 @@ export default Post
 export const getStaticPaths = async () => {
   const query = `*[_type == "post"]{
         _id,
+        publishedAt,
         slug {
         current
         }
@@ -233,6 +234,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
     _id,
     title,
     slug,
+    publishedAt,
     author ->{
     name,
     image
