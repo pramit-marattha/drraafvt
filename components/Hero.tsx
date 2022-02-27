@@ -8,7 +8,7 @@ const Hero = () => {
           <span className="text-teal-100 underline decoration-teal-100 hover:no-underline">
             Drraafvt
           </span>{' '}
-          a portal where I jolt things down !
+          a portal where I jot things down !
         </h1>
         <h2 className="font-serif text-teal-900">
           Mostly about web developments and various Tech stacks that I use !

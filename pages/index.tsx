@@ -34,7 +34,8 @@ export const getServerSideProps = async () => {
       image
     },
     description,
-    mainImage
+    mainImage,
+    slug
     }
     `
   const posts = await sanityClient.fetch(query)

@@ -6,13 +6,17 @@ export default {
     {
       name: 'title',
       title: 'Title',
-      description: 'Give a short title',
+      description: 'Provide a short title',
       type: 'string',
     },
     {
       name: 'description',
       title: 'Description',
       type: 'string',
+      options: {
+        minLength: 36,
+        maxLength: 100,
+      },
     },
     {
       name: 'slug',

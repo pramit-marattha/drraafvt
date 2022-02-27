@@ -6,7 +6,6 @@ export interface Post {
     name: string
     image: string
   }
-  content: Comment[]
   description: string
   mainImage: {
     asset: {
